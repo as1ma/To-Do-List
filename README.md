@@ -10,5 +10,5 @@
 Front-end:
 1. User makes tasks (forms)
 2. Take input from user to make checkboxes and insert task into database
-3. Upload image option for user (forms)
+3. Upload image option for user (forms) //use multer to store image (forms ppt)
 4. CSS stuff 
