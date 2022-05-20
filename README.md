@@ -1,11 +1,11 @@
 # To-Do-List
 
-
 1. create database for tasks (task name, difficulty level)
 2. when checkboxed, add score
 3. Use API to get data from database and use that to display info OR use react library OR axios for front-end
 4. Check if image is uploaded - if it is, check the box and add score
 5. Async function for checkbox...await...add score
+6. EXTENSION: Delete tasks (for mistakes) OR update/edit?
 
 Front-end:
 1. User makes tasks (forms)
