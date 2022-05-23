@@ -7,8 +7,9 @@ const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>
     }
 })
 
+
 //CREATING TABLE
-// db.run("CREATE TABLE users(first_name, last_name, username, password, email, id)")
+// db.run("CREATE TABLE tasks(NAME, DIFFICULTY_LEVEL,IMAGE_LINK)")
 
 //INSERTING NEW VALUES
 // const sql = "INSERT INTO users VALUES('Sam', 'Test', 'STest', 'Test123', 'samantha.Test@multiverse.io', 2)"
@@ -21,15 +22,15 @@ const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>
 //     }
 // });
 
-//SELECTING ROWS TO SEE TABLE
-// const selectSql = "SELECT * FROM users"; db.all(selectSql, (err, rows)=>{
-//     if(err){
-//         return console.error(err.message)
-//     }else{
-//         rows.forEach((row)=>{
-//             console.log(row)})
-//     }
-// })
+// SELECTING ROWS TO SEE TABLE
+const selectSql = "SELECT * FROM tasks"; db.all(selectSql, (err, rows)=>{
+    if(err){
+        return console.error(err.message)
+    }else{
+        rows.forEach((row)=>{
+            console.log(row)})
+    }
+})
 
  //UPDATING
 // const sql = "UPDATE users SET first_name = 'Samantha' WHERE first_name='Sam';"

@@ -10,8 +10,39 @@
     <link rel = "stylesheet" href = "style.css"/>
 </head>
 <body>
+    <h1>Task Manager or smth</h1>
+    <h2>Add a task</h2>
+    <form id="create-task" onsubmit="processForm(this)">
+        <div>
+            <label for="task-name">Task Name</label>
+            <input id="task-name" name="name" required />
+        </div>
+        <div>
+            <label for='task-level'>Difficulty Level</label>
+            <select name="task-level" id="level"required>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+        </div>
+        <!-- <div>
+            <label for="task-image">Upload an image of Task</label>
+            <input id="task-image" name="image" type="file" accept="image/*" required />
+        </div> -->
+        
+        <div>
+            <!-- <button>Create</button> -->
+            <input id = "submit" type = "submit" value = "Create"/>
+        </div>
+    </form>
 
-    <form></form>
+    <h2>To-Do List</h2>
+   <forms>
+        <div id="app">
+        </div>  
+    </form>
     
+    <hr>
+        
 </body>
 </html>
