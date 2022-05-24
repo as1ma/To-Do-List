@@ -53,11 +53,12 @@ class Task {
 //form inputs to server
 function processForm(form) {
     // var data = form;
+    console.log(document.getElementById('task-name').value);
     axios.post('http://localhost:3001/tasks', {
 
         name: document.getElementById('task-name').value,
         difficulty: document.getElementById('level').value,
-        user: document.getElementById('user').value,
+        user: document.getElementById('user').value
 
         // imageLink: document.getElementById('task-image').value
         // imagelink???
@@ -129,55 +130,55 @@ function checkBox(imageUploader) {
 
 
 //login stuff
-//function processLogin() {
-    //console.log("...");
-    // axios.post('http://localhost:3001/users', {
+function processLogin() {
+    console.log("...");
+    axios.post('http://localhost:3001/users', {
 
-    //     user: document.getElementById('uname').value,
-    //     password: document.getElementById('psw').value
-    // })
-    //     .then(console.info)
-    //     .catch(console.error)
+        user: document.getElementById('uname').value,
+        password: document.getElementById('psw').value
+    })
+        .then(console.info)
+        .catch(console.error)
 
-    // try {
-    //     response = await axios.get("http://localhost:3001/users")
-    //     console.log(response.data);
-    // }
-    // catch (error) {
-    //     console.log(error);
-    // }
+    try {
+        response = await axios.get("http://localhost:3001/users")
+        console.log(response.data);
+    }
+    catch (error) {
+        console.log(error);
+    }
 
-    // axios.get("http://localhost:3001/users")
-    //     .then(function (response) {
-    //         console.log(response);
-    //         console.log(response.data);
-    //         return response.data;
-    //     })
-    //     .then(function (data) {
-    //         var name = document.getElementById('uname').value
-    //         var pass = document.getElementById('psw').value
+    axios.get("http://localhost:3001/users")
+        .then(function (response) {
+            console.log(response);
+            console.log(response.data);
+            return response.data;
+        })
+        .then(function (data) {
+            var name = document.getElementById('uname').value
+            var pass = document.getElementById('psw').value
 
-    //         console.log(name);
-    //         console.log(pass);
+            console.log(name);
+            console.log(pass);
 
-    //         if (data.NAME == name) {
-    //             console.log("name is right")
+            if (data.NAME == name) {
+                console.log("name is right")
 
-    //             if (data.PASSWORD == pass) {
-    //                 console.log("password also right")
-    //             }
-    //         }
-    //         else {
-    //             console.log("no user")
+                if (data.PASSWORD == pass) {
+                    console.log("password also right")
+                }
+            }
+            else {
+                console.log("no user")
 
-    //         }
+            }
 
-    //     }
-    //     )
-    //     .catch(error)
-    // {
-    //     console.log(error);
-    // }
-//}
+        }
+        )
+        .catch(error)
+    {
+        console.log(error);
+    }
+}
 //check if username and password match database
 //filter out tasks and score according to user

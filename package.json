@@ -1,7 +1,7 @@
 {
   "name": "to-do-list",
   "version": "1.0.0",
-  "description": "",
+  "description": "1. create database for tasks (task name, difficulty level) ✅ 2. Use API to get data from database and use that to display info OR use react library OR axios for front-end ✅ 3. Check if image is uploaded - if it is, check the box and add score 4. Async function for checkbox...await...add score 5. EXTENSION: Delete tasks (for mistakes) OR update/edit? 6. EXT: users",
   "main": "database.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,7 +20,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "express": "^4.18.1",
-    "express-validator": "^6.14.0",
+    "express-validator": "^6.14.1",
     "multer": "^1.4.4",
     "sqlite3": "^5.0.8"
   },
