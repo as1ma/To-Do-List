@@ -5,12 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- This fixes our Axios Problem. We are importing from browser rather than Node -->
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  <!-- This fixes our Axios Problem. We are importing from browser rather than Node -->
+    <script src="script.js" defer></script>
     <link rel = "stylesheet" href = "style.css"/>
 </head>
 <body>
     <h1>Task Manager or smth</h1>
+
+    <!-- <button onclick="document.getElementById('popup').style.display='block'" style="width:auto;">Login</button>
+
+    <div id="popup" class="modal">
+        <form class="modal-content animate" onsubmit = "processLogin()">
+            <div class="imgcontainer">
+            <span onclick="document.getElementById('popup').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+                
+            <button type="submit">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label> -->
+            <!-- </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('popup').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div> -->
+
+    <!-- <script>
+    var modal = document.getElementById('popup');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script> --> 
+
+
+
     <h2>Add a task</h2>
     <form id="create-task" onsubmit="processForm(this)">
         <div>
@@ -25,6 +66,14 @@
             <option value="Hard">Hard</option>
         </select>
         </div>
+
+        <!-- <div>
+            <label for='task-user'>User</label>
+            <select name="task-user" id="user"required>
+            <option value="1">Nouha</option>
+            <option value="2">Asima</option>
+        </select>
+        </div> -->
         <!-- <div>
             <label for="task-image">Upload an image of Task</label>
             <input id="task-image" name="image" type="file" accept="image/*" required />
@@ -43,6 +92,6 @@
     </form>
     
     <hr>
-        
+    <h3 id="score"></h3>
 </body>
 </html>

@@ -9,21 +9,18 @@ const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>
 
 
 //CREATING TABLE
-// db.run("CREATE TABLE tasks(NAME, DIFFICULTY_LEVEL,IMAGE_LINK)")
+// db.run("CREATE TABLE task(NAME, DIFFICULTY_LEVEL, IMAGE_LINK, USER_ID, ID INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY (USER_ID) REFERENCES users(ID))")
 
-//INSERTING NEW VALUES
-// const sql = "INSERT INTO users VALUES('Sam', 'Test', 'STest', 'Test123', 'samantha.Test@multiverse.io', 2)"
 
-// db.run(sql, (err)=>{
-//     if(err){
-//         return console.error(err.message)
-//     }else{
-//         console.log("Row Created!")
-//     }
-// });
+// db.run("CREATE TABLE users(NAME,PASSWORD, SCORE, ID INTEGER PRIMARY KEY AUTOINCREMENT)")
+
+// db.run("INSERT INTO users(NAME) VALUES('Nouha')")
+// db.run("INSERT INTO users(NAME) VALUES('Asima')")
+
+// db.run("INSERT INTO users (NAME,PASSWORD,SCORE) VALUES('asima','123','0')")
 
 // SELECTING ROWS TO SEE TABLE
-const selectSql = "SELECT * FROM tasks"; db.all(selectSql, (err, rows)=>{
+const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
     if(err){
         return console.error(err.message)
     }else{
@@ -32,8 +29,10 @@ const selectSql = "SELECT * FROM tasks"; db.all(selectSql, (err, rows)=>{
     }
 })
 
+// const sql = "DROP TABLE users"; db.run(sql, (err)=>{ if(err) { return console.error(err.message); } else{ console.log("Table deleted!"); } });
+
  //UPDATING
-// const sql = "UPDATE users SET first_name = 'Samantha' WHERE first_name='Sam';"
+// const sql = "UPDATE task SET USER_ID = 1 WHERE ID = 1;"
 // db.run(sql, (err)=>{
 //     if(err){
 //         return console.error(err.message);
@@ -42,8 +41,8 @@ const selectSql = "SELECT * FROM tasks"; db.all(selectSql, (err, rows)=>{
 //     }
 //     });
     
-//DELETING
-// const sql = "DELETE FROM users WHERE first_name='Samantha';"
+// DELETING
+// const sql = "DELETE FROM tasks WHERE NAME='undefined';"
 // db.run(sql, (err)=>{
 //     if(err){
 //         return console.error(err.message)

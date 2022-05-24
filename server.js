@@ -9,6 +9,18 @@ app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
 })
 
+const sqlite3 = require("sqlite3")
+const db = new sqlite3.Database(
+    "./database.db",
+    sqlite3.OPEN_READWRITE,
+    (err) => {
+        if (err) {
+            return console.error(err.message);
+        } else {
+            console.log("\nSuccess!\n");
+        }
+    }
+);
 
 // const multer = require('multer')
 // const storage = multer.diskStorage({
@@ -53,7 +65,7 @@ app.post('/tasks', [
         return res.status(400).json({ errors: errors.array() })
     } else {
         console.log(req.body);
-        const sql = `INSERT INTO tasks(NAME, DIFFICULTY_LEVEL) VALUES("${req.body.name}","${req.body.difficulty}")`;
+        const sql = `INSERT INTO task(NAME, DIFFICULTY_LEVEL, USER_ID) VALUES("${req.body.name}","${req.body.difficulty}","${req.body.user}")`;
   
         db.run(sql, (err) => {
         if (err) {
@@ -66,8 +78,25 @@ app.post('/tasks', [
     }
 })
 
+app.get('/users', async (req, res) => {
+ 
+        console.log(req.body);
+        const selectSql = `SELECT * from users`;
+        
+        db.all(selectSql, (err, rows)=> {
+        if(err){
+            return console.error(err.message)
+        }else{
+            res.send(rows);
+            // rows.forEach((row)=>{
+            // console.log(row)})
+        }
+        })    
+})
+    
+
 app.get('/tasks', (req,res)=>{
-    const selectSql = "SELECT * FROM TASKS";
+    const selectSql = "SELECT * FROM TASK";
     db.all(selectSql, (err, rows) => {
       if (err) {
         return console.error(err.message);
@@ -77,18 +106,6 @@ app.get('/tasks', (req,res)=>{
     });
 })
 
-const sqlite3 = require("sqlite3")
-const db = new sqlite3.Database(
-    "./database.db",
-    sqlite3.OPEN_READWRITE,
-    (err) => {
-        if (err) {
-            return console.error(err.message);
-        } else {
-            console.log("\nSuccess!\n");
-        }
-    }
-);
 // app.post("/restaurants", (req, res) => {
 //     console.log(req.body); // use the data in req.body to add a new restaurant to the database
 //     const sql = `INSERT INTO tasks(NAME, DIFFICULTY_LEVEL) VALUES("${req.body.NAME}","${req.body.DIFFICULTY_LEVEL}")`;

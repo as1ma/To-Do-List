@@ -1,49 +1,51 @@
-class User{
+class Score {
 
-    constructor(name){
-        name=this.name
-    }
-    upload(){
+    // static hello(){
+    //     return 'hello'
+    // }
 
+    static addScore() {
 
-    }
-
-    checkBox(){
-    
-
+        axios.get("http://localhost:3001/tasks")
+            .then(function (response) {
+                return response.data;
+            })
+            .then(function (data) {
+                let score = 0
+                if (data.DIFFICULTY_LEVEL == "Easy") {
+                    score += 10
+                    return score
+                } else if (data.DIFFICULTY_LEVEL == "Medium") {
+                    score += 30
+                    return score
+                } else if (data.DIFFICULTY_LEVEL == 'Hard') {
+                    score += 50
+                    return score
+                }
+            }).catch(function (error) {
+                console.log(error);
+            })
     }
 }
 
-class Score extends User{
+class User {
 
-    score = 0
-    constructor(score){
+    constructor(name, password, score) {
+        name = this.name
+        password = this.password
         score = this.score
     }
+    upload() {
+        return false
+    }
 
-    addScore(){
-        axios.get("http://localhost:3001/tasks")
-        .then(function (response) {
-        return response.data;
-        })  
-        .then(function (data){ 
-            if (data.DIFFICULTY_LEVEL == "Easy"){
-                this.score += 10
-            }else if (data.DIFFICULTY_LEVEL == "Medium"){
-                this.score += 30
-            }else{
-                this.score+=50
-            }
-        }
-    )}
 }
 
-
-class Task{
-    constructor(task){
-        task=this.task
+class Task {
+    constructor(task) {
+        task = this.task
     }
-    addTask(){
+    addTask() {
 
     }
 }
@@ -51,67 +53,131 @@ class Task{
 //form inputs to server
 function processForm(form) {
     // var data = form;
-
     axios.post('http://localhost:3001/tasks', {
 
-    name: document.getElementById('task-name').value,
-    difficulty: document.getElementById('level').value,
-    // imageLink: document.getElementById('task-image').value
-    // imagelink???
+        name: document.getElementById('task-name').value,
+        difficulty: document.getElementById('level').value,
+        user: document.getElementById('user').value,
+
+        // imageLink: document.getElementById('task-image').value
+        // imagelink???
     })
-    .then(console.info)
-    .catch(console.error)
+        .then(console.info)
+        .catch(console.error)
 }
-    
+
 
 axios.get("http://localhost:3001/tasks")
-.then(function (response) {
-    return response.data;
-})  
-.then(function (data){ 
-    data.forEach(data => {
-    const taskNameElement = document.createElement("INPUT")
-    taskNameElement.setAttribute("id","task-list-item")
-    taskNameElement.setAttribute("type","checkbox")
-     
-    const taskLabel = document.createElement('label')
-    taskLabel.setAttribute("for", "task-list-item")
-    taskLabel.innerHTML= `${data.NAME}`
-    const break1 = document.createElement("br")
+    .then(function (response) {
+        return response.data;
+    })
+    .then(function (data) {
+        data.forEach(data => {
+            const taskNameElement = document.createElement("INPUT")
+            taskNameElement.setAttribute("id", "task-list-item")
+            taskNameElement.setAttribute("type", "checkbox")
+            taskNameElement.setAttribute("disabled", "true")
 
-//     <div>
-//     <label for="task-image">Upload an image of Task</label>
-//     <input id="task-image" name="image" type="file" accept="image/*" required />
-// </div>
+            const taskLabel = document.createElement('label')
+            taskLabel.setAttribute("for", "task-list-item")
+            taskLabel.innerHTML = `${data.NAME}`
+            const break1 = document.createElement("br")
 
-    const taskImage = document.createElement("INPUT")
-    taskImage.setAttribute("type","file")
-    taskImage.setAttribute("id","task-image")
-    taskImage.setAttribute("accept","image/*")
-    
+            const taskImage = document.createElement("INPUT")
+            taskImage.setAttribute("type", "file")
+            taskImage.setAttribute("id", "task-image")
+            taskImage.setAttribute("accept", "image/*")
+            // taskImage.setAttribute("required", "true")
+            taskImage.setAttribute("onchange", "checkBox(this);")
+            // taskImage.setAttribute('onchange',"addScore()"
 
-    // const taskImageLabel=document.createElement("label")
-    // taskImageLabel.setAttribute('for',"task-image")
+            app.appendChild(taskNameElement)
+            app.appendChild(taskLabel)
+            app.appendChild(taskImage)
+            app.appendChild(break1)
+        })
+    }).catch(function (error) {
+        console.log(error);
+    })
 
 
-    app.appendChild(taskNameElement)
-    app.appendChild(taskLabel)
-    app.appendChild(taskImage)
-    app.appendChild(break1)
-    
-    // app.appendChild(taskImageLabel)
-})
-}).catch(function (error){ 
-    console.log(error); 
-})
-
-// async function IsCheckboxTicked = true
-// await upload Image
-// upload image add to database then await checkBox
-// check User.upload() == true
-
-//checkbox if image is uploaded
-//then add score
-
+// async function IsCheckboxTicked {
+//checkbox if image is uploaded - "document.getElementById("myCheck").checked = true;"
+// if (checkBox.checked == true){
+// then add score
 // const score1= new Score()
 // Score.addScore()
+//   } 
+// }
+// await upload Image
+// upload image add to database then await checkBox
+// OR check User.upload() == true
+
+
+
+function checkBox(imageUploader) {
+    if (imageUploader.files.length > 0) {
+        document.getElementById("task-list-item").checked = true;
+
+        //asyncImageCheck()
+    }
+    else {
+        document.getElementById("task-list-item").checked = false;
+    }
+}
+
+
+
+//login stuff
+//function processLogin() {
+    //console.log("...");
+    // axios.post('http://localhost:3001/users', {
+
+    //     user: document.getElementById('uname').value,
+    //     password: document.getElementById('psw').value
+    // })
+    //     .then(console.info)
+    //     .catch(console.error)
+
+    // try {
+    //     response = await axios.get("http://localhost:3001/users")
+    //     console.log(response.data);
+    // }
+    // catch (error) {
+    //     console.log(error);
+    // }
+
+    // axios.get("http://localhost:3001/users")
+    //     .then(function (response) {
+    //         console.log(response);
+    //         console.log(response.data);
+    //         return response.data;
+    //     })
+    //     .then(function (data) {
+    //         var name = document.getElementById('uname').value
+    //         var pass = document.getElementById('psw').value
+
+    //         console.log(name);
+    //         console.log(pass);
+
+    //         if (data.NAME == name) {
+    //             console.log("name is right")
+
+    //             if (data.PASSWORD == pass) {
+    //                 console.log("password also right")
+    //             }
+    //         }
+    //         else {
+    //             console.log("no user")
+
+    //         }
+
+    //     }
+    //     )
+    //     .catch(error)
+    // {
+    //     console.log(error);
+    // }
+//}
+//check if username and password match database
+//filter out tasks and score according to user
