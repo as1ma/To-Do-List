@@ -80,10 +80,9 @@ app.post('/tasks', [
 
 app.get('/users', async (req, res) => {
  
-        console.log(req.body);
         const selectSql = `SELECT * from users`;
         
-        db.all(selectSql, (err, rows)=> {
+       db.all(selectSql, (err, rows)=> {
         if(err){
             return console.error(err.message)
         }else{
@@ -93,6 +92,35 @@ app.get('/users', async (req, res) => {
         }
         })    
 })
+
+// app.get('/users', async (req, res) => {
+ 
+//   let myVar = await foobar()
+//   .then(response => JSON.stringify(response))
+//   .then(data => {return JSON.parse(data)});
+//     console.log( await foobar());
+//   res.send(await foobar());
+ 
+// });
+
+// function foobar(){
+
+//     const selectSql = `SELECT * from users`;
+//     return new Promise((res, rej) => {
+ 
+//          db.all(selectSql, (err, rows)=> {
+//              if(err){
+//                  console.log('Hit rej')
+ 
+//                  rej(new Error(err.message));
+//              }else{
+//                  console.log('Hit res')
+//                  res(rows); 
+//              }
+//              });
+//     });
+    
+// }
     
 
 app.get('/tasks', (req,res)=>{
