@@ -1,4 +1,3 @@
-const { default: axios } = require("axios");
 
 class Score {
   constructor(score){
@@ -90,7 +89,6 @@ axios.get("http://localhost:3001/tasks")
   })
   .then(function (data) {
     data.forEach((data) => {
-    if (data.USER_ID == "1" ){
       const taskNameElement = document.createElement("INPUT");
       taskNameElement.setAttribute("id", "task-list-item" + data.ID);
       taskNameElement.setAttribute("type", "checkbox");
@@ -99,6 +97,7 @@ axios.get("http://localhost:3001/tasks")
 
       const taskLabel = document.createElement("label");
       taskLabel.setAttribute("for", "task-list-item" + data.ID);
+      taskLabel.setAttribute("id", "task-label"+data.ID)
       taskLabel.setAttribute("class", data.ID);
       taskLabel.innerHTML = `${data.NAME}`;
       const break13 = document.createElement("br");
@@ -124,7 +123,7 @@ axios.get("http://localhost:3001/tasks")
       app.appendChild(taskImage);
       app.appendChild(taskDelete)
       app.appendChild(break13);
-    }
+    
     });
   })
   .catch(function (error) {
@@ -161,25 +160,47 @@ async function checkBox(imageUploader) {
   }
 }
 
-async function deleteTask(button){
+// async function deleteTask(button){
 
-  let id = button.getAttribute("class");
+//   let id = button.getAttribute("class");
 
-  console.log("delete")
-  //archive - set to true 
-  try{
-    let result = await axios.get("http://localhost:3001/delete/" + id)
-    console.log(result.data)
-    result.data.forEach((data) =>{
-        if(data.ARCHIVE == 0 ){
+//   console.log("delete")
+//   //archive - set to true 
+//   try{
+//     let result = await axios.get(`http://localhost:3001/delete/` + id)
+//     console.log(result.data)
+//     result.data.forEach((data) =>{
+//         if(data.ARCHIVE == 0 ){
+          
+//         }
+
+//     })
+//   }
+//  catch(error){
+//    console.log(error)
   
-        }
+// }
 
+// }
+
+async function deleteTask(button) {
+  let id = button.getAttribute("class")
+ try{
+  let result = await axios.put(`http://localhost:3001/delete/` + id) //change to /:id ??
+  result.data.forEach((data) =>{
+    console.log("delete")
+    ;
+    let del1 = document.getElementById("task-list-item"+id)
+    del1.remove()
+    let del2 = document.getElementById("task-image"+id)
+    del2.remove()
+    let del3 = document.getElementById("task-delete"+id)
+    del3.remove()
+    let del4 = document.getElementById("task-label"+id)
+    del4.remove()
     })
-  }
- catch(error){
-   console.log(error)
-  
+}catch(error){
+  console.log(error)
 }
 
 }
@@ -195,7 +216,7 @@ async function addScore(id){
     }catch(error){
         console.log(error)
     }
-
+    
     try{
         let result = await axios.get(`http://localhost:3001/tasks/` + id) //change to /:id ??
         let score = 0
@@ -218,44 +239,10 @@ async function addScore(id){
     }
 }
 
-// async function getUsers(form){
-//     try{
-//         // var name = document.getElementById("uname").value;
-//         // var pass = document.getElementById("psw").value;
 
-//         // console.log(name);
-//         // console.log(pass); 
-//         // let name = "asima"
-//         // let pass = "123"
-
-//         let result = await axios.get("http://localhost:3001/users")
-//         console.log(result.data)
-//         result.data.forEach((data) =>{
-//           if(data.NAME ==name){
-//             console.log("name is right");
-//             if(data.PASSSWORD == pass){
-//               console.log("password is right")
-//             }
-//           }else{
-//             console.log('no user')
-//           }
-        
-//         })
-       
-        
-//     }catch(error){
-//         console.log(error)
-//     }
-// }
-
-// getUsers()
 
 //filter out tasks and score according to user
 async function taskPage(){
-    var un=document.forms["myForm"]["uname"].value
-    var pw=document.forms["myForm"]["psw"].value
-
-
       try{
         var un=document.forms["myForm"]["uname"].value
         var pw=document.forms["myForm"]["psw"].value

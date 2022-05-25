@@ -122,7 +122,7 @@ app.get('/tasks/:id', (req,res)=>{
 
 app.get('/user/:id', (req,res)=>{
   id = req.params.id
-  const selectSql = `SELECT * FROM TASK WHERE USER_ID = ${id} ` ;
+  const selectSql = `SELECT * FROM TASK WHERE USER_ID = "${id}" ` ;
   db.all(selectSql, (err, rows) => {
     if (err) {
       return console.error(err.message);
@@ -150,16 +150,16 @@ app.get('/delete', (req,res)=>{
 })
 
 
-app.delete("/delete/:id", function (req, res) {
+app.put("/delete/:id", function (req, res) {
   const index = req.params.id;
-  // console.log(
-  //   "Updating Restaurant " +
-  //     index +
-  //     " setting Name to " +
-  //     req.body.NAME +
-  //     ", setting Imagelink to " +
-  //     req.body.IMAGELINK
-  // )
+  console.log(
+    "Updating Restaurant " +
+      index +
+      " setting Name to " +
+      req.body.NAME +
+      ", setting Imagelink to " +
+      req.body.IMAGELINK
+  )
 
   db.run(
     `UPDATE task SET ARCHIVE = 1 WHERE ID ="${index}"`
@@ -168,7 +168,7 @@ app.delete("/delete/:id", function (req, res) {
   //   `UPDATE restaurants SET NAME = "${req.body.NAME}" WHERE ID = "${index}";`
   // );
 
-  const selectSql = `SELECT * FROM TASK WHERE ID=${index}`;
+  const selectSql = `SELECT * FROM TASK WHERE ID="${index}"`;
   db.all(selectSql, (err, rows) => {
     if (err) {
       return console.error(err.message);
