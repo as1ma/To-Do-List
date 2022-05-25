@@ -93,38 +93,12 @@ app.get('/users', async (req, res) => {
         })    
 })
 
-// app.get('/users', async (req, res) => {
- 
-//   let myVar = await foobar()
-//   .then(response => JSON.stringify(response))
-//   .then(data => {return JSON.parse(data)});
-//     console.log( await foobar());
-//   res.send(await foobar());
- 
-// });
 
-// function foobar(){
-
-//     const selectSql = `SELECT * from users`;
-//     return new Promise((res, rej) => {
- 
-//          db.all(selectSql, (err, rows)=> {
-//              if(err){
-//                  console.log('Hit rej')
- 
-//                  rej(new Error(err.message));
-//              }else{
-//                  console.log('Hit res')
-//                  res(rows); 
-//              }
-//              });
-//     });
-    
-// }
     
 
 app.get('/tasks', (req,res)=>{
-    const selectSql = "SELECT * FROM TASK";
+    //where archived = 'false' - alter sql
+    const selectSql = "SELECT * FROM TASK WHERE ARCHIVE= 0 ";
     db.all(selectSql, (err, rows) => {
       if (err) {
         return console.error(err.message);
@@ -133,6 +107,76 @@ app.get('/tasks', (req,res)=>{
       }
     });
 })
+
+app.get('/tasks/:id', (req,res)=>{
+    id = req.params.id
+    const selectSql = `SELECT * FROM TASK WHERE ID = ${id} ` ;
+    db.all(selectSql, (err, rows) => {
+      if (err) {
+        return console.error(err.message);
+      } else {
+        res.send(rows);
+      }
+    });
+})
+
+app.get('/user/:id', (req,res)=>{
+  id = req.params.id
+  const selectSql = `SELECT * FROM TASK WHERE USER_ID = ${id} ` ;
+  db.all(selectSql, (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    } else {
+      res.send(rows);
+    }
+  });
+})
+
+// app.put('/delete', (req,res)=>{
+//   archive = req.body.
+//   const selectSql=''
+// })
+
+app.get('/delete', (req,res)=>{
+  //where archived = 'false' - alter sql
+  const selectSql = "SELECT * FROM TASK WHERE ARCHIVE= 0";
+  db.all(selectSql, (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    } else {
+      res.send(rows);
+    }
+  });
+})
+
+
+app.delete("/delete/:id", function (req, res) {
+  const index = req.params.id;
+  // console.log(
+  //   "Updating Restaurant " +
+  //     index +
+  //     " setting Name to " +
+  //     req.body.NAME +
+  //     ", setting Imagelink to " +
+  //     req.body.IMAGELINK
+  // )
+
+  db.run(
+    `UPDATE task SET ARCHIVE = 1 WHERE ID ="${index}"`
+  );
+  // db.run(
+  //   `UPDATE restaurants SET NAME = "${req.body.NAME}" WHERE ID = "${index}";`
+  // );
+
+  const selectSql = `SELECT * FROM TASK WHERE ID=${index}`;
+  db.all(selectSql, (err, rows) => {
+    if (err) {
+      return console.error(err.message);
+    } else {
+      res.send(rows);
+    }
+  });
+});
 
 // app.post("/restaurants", (req, res) => {
 //     console.log(req.body); // use the data in req.body to add a new restaurant to the database

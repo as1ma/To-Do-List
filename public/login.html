@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  <!-- This fixes our Axios Problem. We are importing from browser rather than Node -->
+    <script src="script.js" defer></script>
+    <link rel = "stylesheet" href = "login.css"/>
+    
+</head>
+<body>
+    <h2>Login Form</h2>
+    <form name="myForm" method="post">
+        <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
+        <br>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required> 
+        <br>
+        <input type="button" name="log" id="logbutton" value="Login" onclick="taskPage()">
+            
+    </form>
+
+    
+</body>
+</html>

@@ -11,13 +11,12 @@ const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>
 //CREATING TABLE
 // db.run("CREATE TABLE task(NAME, DIFFICULTY_LEVEL, IMAGE_LINK, USER_ID, ID INTEGER PRIMARY KEY AUTOINCREMENT, FOREIGN KEY (USER_ID) REFERENCES users(ID))")
 
-
 // db.run("CREATE TABLE users(NAME,PASSWORD, SCORE, ID INTEGER PRIMARY KEY AUTOINCREMENT)")
 
 // db.run("INSERT INTO users(NAME) VALUES('Nouha')")
 // db.run("INSERT INTO users(NAME) VALUES('Asima')")
 
-// db.run("INSERT INTO users (NAME,PASSWORD,SCORE) VALUES('asima','123','0')")
+// db.run("INSERT INTO users (NAME,PASSWORD,SCORE) VALUES('nouha','123','0')")
 
 // SELECTING ROWS TO SEE TABLE
 const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
@@ -29,7 +28,7 @@ const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
     }
 })
 
-// const sql = "DROP TABLE users"; db.run(sql, (err)=>{ if(err) { return console.error(err.message); } else{ console.log("Table deleted!"); } });
+// const sql = "ALTER TABLE task DROP COLUMN ARCHIVE"; db.run(sql, (err)=>{ if(err) { return console.error(err.message); } else{ console.log("Table deleted!"); } });
 
  //UPDATING
 // const sql = "UPDATE task SET USER_ID = 1 WHERE ID = 1;"
@@ -42,7 +41,7 @@ const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
 //     });
     
 // DELETING
-// const sql = "DELETE FROM tasks WHERE NAME='undefined';"
+// const sql = "DELETE FROM task WHERE NAME='life';"
 // db.run(sql, (err)=>{
 //     if(err){
 //         return console.error(err.message)
@@ -50,6 +49,12 @@ const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
 //         console.log("Deleted!")
 //     }
 // });
+
+
+//ALTER TO ADD ARCHIVE COLUMN
+// db.run("ALTER TABLE task ADD ARCHIVE BOOLEAN DEFAULT FALSE")
+
+
 
 //CLOSING THE CONNECTION
 // db.close((err) =>{
@@ -59,21 +64,7 @@ const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
 //         console.log("DB Closed");
 //     }
 //     });
-    
-
-//AUTOINCREMENT
-// db.run("CREATE TABLE COMPANY(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL,AGE INTEGER NOT NULL,ADDRESS,SALARY REAL);");
-// db.run("INSERT INTO COMPANY (NAME,AGE,ADDRESS,SALARY)VALUES ('Jon', 29, 'New York', 35000.00)")
-
-// const selectSql = "SELECT * FROM COMPANY"; db.all(selectSql, (err, rows)=>{
-//     if(err){
-//         return console.error(err.message)
-//     }else{
-//         rows.forEach((row)=>{
-//             console.log(row)})
-//         }
-// })
-
 
 //---------------------------------------------------------------------------------------------------------------------
+
 
