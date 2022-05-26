@@ -8,9 +8,17 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  <!-- This fixes our Axios Problem. We are importing from browser rather than Node -->
     <script src="script.js" defer></script>
     <link rel = "stylesheet" href = "style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100&effect=neon">
 </head>
 <body>
-    <h1>Task Manager or smth</h1>
+    <div id = "title-div">
+        <h1 id="title">Task Manager</h1>
+    </div>
+
+
 
     <!-- <button onclick="document.getElementById('popup').style.display='block'" style="width:auto;">Login</button>
 
@@ -51,46 +59,52 @@
     }
     </script>  -->
 
+    <div id="add-task">
+        <h2>Add a task</h2>
+        <form id="create-task" onsubmit="processForm(this)">
+            <div>
+                <label for="task-name">Task Name</label>
+                <input id="task-name" name="name" required />
+            </div>
+            <div id="create-space"> 
+                <label for='task-level'>Difficulty Level</label>
+                <select name="task-level" id="level"required>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+            </div>
 
-    <h2>Add a task</h2>
-    <form id="create-task" onsubmit="processForm(this)">
-        <div>
-            <label for="task-name">Task Name</label>
-            <input id="task-name" name="name" required />
-        </div>
-        <div>
-            <label for='task-level'>Difficulty Level</label>
-            <select name="task-level" id="level"required>
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-        </select>
-        </div>
-
-        <!-- <div>
-            <label for='task-user'>User</label>
-            <select name="task-user" id="user"required>
-            <option value="1">Nouha</option>
-            <option value="2">Asima</option>
-        </select>
-        </div> -->
-        <!-- <div>
-            <label for="task-image">Upload an image of Task</label>
-            <input id="task-image" name="image" type="file" accept="image/*" required />
-        </div> -->
-        
-        <div>
-            <!-- <button>Create</button> -->
-            <input id = "submit" type = "submit" value = "Create"/>
-        </div>
-    </form>
-
-    <h2>To-Do List</h2>
-   <forms >
-        <div id="app" ></div>  
-    </form>
+            <!-- <div>
+                <label for='task-user'>User</label>
+                <select name="task-user" id="user"required>
+                <option value="1">Nouha</option>
+                <option value="2">Asima</option>
+            </select>
+            </div> -->
+            <!-- <div>
+                <label for="task-image">Upload an image of Task</label>
+                <input id="task-image" name="image" type="file" accept="image/*" required />
+            </div> -->
+            
+            <div id="space">
+                <!-- <button>Create</button> -->
+                <input id = "submit" type = "submit" value = "Create"/>
+            </div>
+        </form>
+    </div>
     
-    <hr>
+   
+    <div id="list">
+    
+        <h2>To-Do List</h2>
+        <form id="paddingfix">
+             <div id="app" ></div>  
+        </form>
+
     <div id="score"></div>
+    </div>
+    
+    
 </body>
 </html>

@@ -1,10 +1,12 @@
 
 class Score {
-  constructor(score){
-      score = this.score
-  }
- 
-  static addScore() {
+  score = 0
+  // constructor(score){
+  //     score = this.score
+  // }
+  
+  
+  addScore() {
       let score = 0
       console.log("hi")
     // return score
@@ -89,11 +91,14 @@ axios.get("http://localhost:3001/tasks")
   })
   .then(function (data) {
     data.forEach((data) => {
+      const inputDiv = document.createElement("div")
+      inputDiv.setAttribute("id","task-css")
       const taskNameElement = document.createElement("INPUT");
       taskNameElement.setAttribute("id", "task-list-item" + data.ID);
       taskNameElement.setAttribute("type", "checkbox");
       taskNameElement.setAttribute("disabled", "true");
       taskNameElement.setAttribute("class", data.ID);
+      taskNameElement.style.padding = "50px"
 
       const taskLabel = document.createElement("label");
       taskLabel.setAttribute("for", "task-list-item" + data.ID);
@@ -115,15 +120,22 @@ axios.get("http://localhost:3001/tasks")
       taskDelete.setAttribute("id","task-delete" + data.ID);
       taskDelete.setAttribute("onclick","deleteTask(this)");
       taskDelete.setAttribute("class",data.ID);
-      taskDelete.innerHTML = "delete"
+      taskDelete.innerHTML = "DEL"
 
     //   let app = document.getElementById("app")
-      app.appendChild(taskNameElement);
-      app.appendChild(taskLabel);
-      app.appendChild(taskImage);
-      app.appendChild(taskDelete)
-      app.appendChild(break13);
     
+      // app.appendChild(taskNameElement);
+      // app.appendChild(taskLabel);
+      // app.appendChild(taskImage);
+      // app.appendChild(taskDelete)
+      // app.appendChild(break13);
+      app.appendChild(inputDiv)
+      inputDiv.appendChild(taskNameElement);
+      inputDiv.appendChild(taskLabel);
+      inputDiv.appendChild(taskImage);
+      inputDiv.appendChild(taskDelete)
+      inputDiv.appendChild(break13);
+
     });
   })
   .catch(function (error) {
@@ -146,11 +158,12 @@ async function checkBox(imageUploader) {
   if (imageUploader.files.length > 0) {
     
     let id = imageUploader.getAttribute("class");
-
+    
     document.getElementById("task-list-item" + id).checked = true;
+    saveImage(id)
     let score = await addScore(id)
     const scoreDiv = document.getElementById("score")
-    scoreDiv.innerHTML = "score: "+`${score}`
+    scoreDiv.innerHTML = "SCORE: "+`${score}`
 
   } else {
     document.getElementById("task-list-item").checked = false;
@@ -160,44 +173,39 @@ async function checkBox(imageUploader) {
   }
 }
 
-// async function deleteTask(button){
-
-//   let id = button.getAttribute("class");
-
-//   console.log("delete")
-//   //archive - set to true 
-//   try{
-//     let result = await axios.get(`http://localhost:3001/delete/` + id)
-//     console.log(result.data)
-//     result.data.forEach((data) =>{
-//         if(data.ARCHIVE == 0 ){
-          
-//         }
-
-//     })
-//   }
-//  catch(error){
-//    console.log(error)
+function saveImage(id) {
+  img = document.getElementById("task-image" + id).value
+  console.log(img)
+  axios
+    .post("http://localhost:3001/tasks", {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+    })
+    .then(console.info)
+    .catch(console.error);
+  }
   
-// }
+  
 
-// }
 
 async function deleteTask(button) {
   let id = button.getAttribute("class")
+  console.log(id)
  try{
   let result = await axios.put(`http://localhost:3001/delete/` + id) //change to /:id ??
   result.data.forEach((data) =>{
     console.log("delete")
-    ;
-    let del1 = document.getElementById("task-list-item"+id)
-    del1.remove()
-    let del2 = document.getElementById("task-image"+id)
-    del2.remove()
-    let del3 = document.getElementById("task-delete"+id)
-    del3.remove()
-    let del4 = document.getElementById("task-label"+id)
-    del4.remove()
+    // let del1 = document.getElementById("task-list-item"+id)
+    // del1.remove()
+    // let del2 = document.getElementById("task-image"+id)
+    // del2.remove()
+    // let del3 = document.getElementById("task-delete"+id)
+    // del3.remove()
+    // let del4 = document.getElementById("task-label"+id)
+    // del4.remove()
+    let del=document.getElementById("task-css")
+    del.remove()
     })
 }catch(error){
   console.log(error)
@@ -205,24 +213,23 @@ async function deleteTask(button) {
 
 }
 
-
+let score=0
 async function addScore(id){
-    try{
-        let userScore = await axios.get("http://localhost:3001/users/" + id)
-        userScore.data.forEach((data) =>{
-            
-        })
+  
 
-    }catch(error){
-        console.log(error)
-    }
+    // let userScore = await axios.get("http://localhost:3001/users/")
+    // userScore.data.forEach((data) =>{
+    //   let score = data.SCORE
+    //   console.log(score)
+    // })
     
     try{
         let result = await axios.get(`http://localhost:3001/tasks/` + id) //change to /:id ??
-        let score = 0
+        // let score = 0
         result.data.forEach((data) =>{
             if (data.DIFFICULTY_LEVEL == "Easy") {
             score += 10;
+            // axios.put(`http://localhost:3001/users/`)
             data
             console.log(score)
             } else if (data.DIFFICULTY_LEVEL == "Medium") {
@@ -239,8 +246,6 @@ async function addScore(id){
     }
 }
 
-
-
 //filter out tasks and score according to user
 async function taskPage(){
       try{
@@ -249,7 +254,7 @@ async function taskPage(){
         let result = await axios.get("http://localhost:3001/users")
         console.log(result.data)
         result.data.forEach((data) =>{
-            data.ID
+          data.ID
           if(data.NAME ==un ){
             console.log("name is right");
             window.location.href="index.html"
@@ -264,3 +269,20 @@ async function taskPage(){
     }  
 
 }
+
+
+// async function checkImage(id){
+//   try{
+//     let result=await axios.get(`http://localhost:3001/tasks/` + id)
+//     result.data.forEach((data)=>{
+//       if(data.IMAGE_LINK != NULL){
+        
+//       }
+      
+//     })
+
+//   }
+//   catch(error){
+//     console.log(error)
+//   }
+// }

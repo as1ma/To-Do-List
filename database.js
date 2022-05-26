@@ -19,7 +19,7 @@ const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>
 // db.run("INSERT INTO users (NAME,PASSWORD,SCORE) VALUES('nouha','123','0')")
 
 // SELECTING ROWS TO SEE TABLE
-const selectSql = "SELECT * FROM task"; db.all(selectSql, (err, rows)=>{
+const selectSql = "SELECT * FROM task WHERE ARCHIVE= 0"; db.all(selectSql, (err, rows)=>{
     if(err){
         return console.error(err.message)
     }else{

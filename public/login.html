@@ -8,22 +8,30 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>  <!-- This fixes our Axios Problem. We are importing from browser rather than Node -->
     <script src="script.js" defer></script>
     <link rel = "stylesheet" href = "login.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400&display=swap" rel="stylesheet">
     
 </head>
 <body>
-    <h2>Login Form</h2>
-    <form name="myForm" method="post">
-        <div class="container">
-        <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
-        <br>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required> 
-        <br>
-        <input type="button" name="log" id="logbutton" value="Login" onclick="taskPage()">
-            
-    </form>
-
+    <div id="loginBox">
+        <h1>Login Form</h1>
+        <form name="myForm" method="post">
+            <div class="container">
+                <div id="uname">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+                </div>
+            <br>
+            <div id="psw">
+                <label  for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required> 
+            </div>
+            <br>
+            <input type="button" name="log" id="logbutton" value="Login" onclick="taskPage()">
+            </div>   
+        </form>
+    </div>
     
 </body>
 </html>

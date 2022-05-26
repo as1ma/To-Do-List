@@ -22,23 +22,19 @@ const db = new sqlite3.Database(
     }
 );
 
+// const path = require('path')
+// const cors = require('cors')
 // const multer = require('multer')
-// const storage = multer.diskStorage({
-//     destination: (req, fileData, next) => {
-//          // this is where your uploaded image file will be saved
-//          next(null, path.join(__dirname, 'public', 'uploads'))
-//         },
-//         filename: (req, fileData, next) => {
-//             // name the file however you like I'm using a timestamp
-//             next(null, new Date().getTime() + path.extname(fileData.originalname))
-//         }
-// })
-// const images = multer({ storage })
-// app.post('/images', images.single('image'), (req, res) => {
-// console.log(req.body) // here you can access the text field name of the restaurant req.body.name 
-// console.log(req.file) // this object is the meta data you need to store/process
-// // the uploaded file will be in your `public/uploads` folder (go look!)
-// res.sendStatus(201) // 201 is the response code for successfully creating a resource
+// const bodyParser = require('body-parser')
+
+// app.use(cors())
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(express.json())
+
+// const upload = multer({ dest: path.join('.', 'images') })
+// app.post('/USERS', upload.single('avatar'), (req, res) => {
+//   console.log(req.body)
+//   console.log(req.file)
 // })
 
 //postman
@@ -152,22 +148,9 @@ app.get('/delete', (req,res)=>{
 
 app.put("/delete/:id", function (req, res) {
   const index = req.params.id;
-  console.log(
-    "Updating Restaurant " +
-      index +
-      " setting Name to " +
-      req.body.NAME +
-      ", setting Imagelink to " +
-      req.body.IMAGELINK
-  )
-
   db.run(
     `UPDATE task SET ARCHIVE = 1 WHERE ID ="${index}"`
   );
-  // db.run(
-  //   `UPDATE restaurants SET NAME = "${req.body.NAME}" WHERE ID = "${index}";`
-  // );
-
   const selectSql = `SELECT * FROM TASK WHERE ID="${index}"`;
   db.all(selectSql, (err, rows) => {
     if (err) {
@@ -177,6 +160,27 @@ app.put("/delete/:id", function (req, res) {
     }
   });
 });
+
+// app.put("/users", function(req,res){
+//   db.run(`UPDATE users SET SCORE =  ${score} WHERE ID = 1`)
+// })
+
+
+
+// app.put("/checkbox/:id", function (req, res) {
+//   const index = req.params.id;
+//   db.run(
+//     `UPDATE task SET IMAGE_LINK = "${req.body.imageLink}" WHERE ID ="${index}"`
+//   );
+//   const selectSql = `SELECT * FROM TASK WHERE ID="${index}"`;
+//   db.all(selectSql, (err, rows) => {
+//     if (err) {
+//       return console.error(err.message);
+//     } else {
+//       res.send(rows);
+//     }
+//   });
+// });
 
 // app.post("/restaurants", (req, res) => {
 //     console.log(req.body); // use the data in req.body to add a new restaurant to the database
