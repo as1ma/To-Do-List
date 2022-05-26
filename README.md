@@ -12,9 +12,5 @@ Front-end:
 2. Take input from user to make checkboxes and insert task into database ✅
 3. Upload image option for user (forms) ✅ 
 4. EXTENSION: //use multer to store image (forms ppt)
-5. CSS stuff 
+5. CSS stuff ✅
 6. EXTENSION: strikethrough task when completed?
-
------
-- LOGIN PASSWORD AND FILTER TASKS 
-- SAVE IMAGE LINK TO DATABASE (MULTER)
