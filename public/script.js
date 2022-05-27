@@ -1,10 +1,9 @@
-
+"use strict"
 class Score {
   score = 0
   // constructor(score){
   //     score = this.score
   // }
-  
   
   addScore() {
       let score = 0
@@ -35,8 +34,6 @@ class Score {
 
 }
 }
-
-  
 
 class User {
   constructor(name, password, score) {
@@ -142,7 +139,7 @@ async function checkBox(imageUploader) {
     let id = imageUploader.getAttribute("class");
     
     document.getElementById("task-list-item" + id).checked = true;
-    saveImage(id)
+    // saveImage(id)
     let score = await addScore(id)
     const scoreDiv = document.getElementById("score")
     scoreDiv.innerHTML = "SCORE: "+`${score}`
@@ -156,18 +153,18 @@ async function checkBox(imageUploader) {
 }
 
 
-function saveImage(id) {
-  img = document.getElementById("task-image" + id).value
-  console.log(img)
-  axios
-    .post("http://localhost:3001/tasks", {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-    }
-    })
-    .then(console.info)
-    .catch(console.error);
-  }
+// function saveImage(id) {
+//   img = document.getElementById("task-image" + id).value
+//   console.log(img)
+//   axios
+//     .post("http://localhost:3001/tasks", {
+//       headers: {
+//         'Content-Type': 'multipart/form-data'
+//     }
+//     })
+//     .then(console.info)
+//     .catch(console.error);
+//   }
   
   
 //deletes task from database and html when button is clicked
@@ -178,14 +175,6 @@ async function deleteTask(button) {
   let result = await axios.put(`http://localhost:3001/delete/` + id) //change to /:id ??
   result.data.forEach((data) =>{
     console.log("delete")
-    // let del1 = document.getElementById("task-list-item"+id)
-    // del1.remove()
-    // let del2 = document.getElementById("task-image"+id)
-    // del2.remove()
-    // let del3 = document.getElementById("task-delete"+id)
-    // del3.remove()
-    // let del4 = document.getElementById("task-label"+id)
-    // del4.remove()
     let del=document.getElementById("task-css")
     del.remove()
     })
@@ -198,8 +187,6 @@ async function deleteTask(button) {
 //adds score when checkbox is ticked
 let score=0
 async function addScore(id){
-  
-    
     try{
         let result = await axios.get(`http://localhost:3001/tasks/` + id) //change to /:id ??
         result.data.forEach((data) =>{
@@ -233,7 +220,7 @@ async function taskPage(){
           data.ID
           if(data.NAME ==un && data.PASSWORD == pw){
             console.log("name is right");
-            window.location.href="index.html"
+            window.location.href="http://localhost:3001"
             
           }else{
             console.log('no user')
