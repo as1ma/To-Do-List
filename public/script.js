@@ -9,18 +9,7 @@ class Score {
   addScore() {
       let score = 0
       console.log("hi")
-    // return score
 
-    // axios.get('/tasks', (req,res)=>{
-    //     const level = "SELECT DIFFICULTY_LEVEL FROM TASK";
-    //     db.all(level, (err, rows) => {
-    //       if (err) {
-    //         return console.error(err.message);
-    //       } else {
-    //         res.send(rows);
-    //       }
-    //     });
-    // })
 
     axios.get("http://localhost:3001/tasks")
       .then(function (response) {
@@ -49,7 +38,6 @@ class Score {
 
   
 
-
 class User {
   constructor(name, password, score) {
     name = this.name;
@@ -65,12 +53,11 @@ class Task {
   constructor(task) {
     task = this.task;
   }
-  addTask() {}
 }
 
-//form inputs to server
+//inserts form inputs to server
 function processForm(form) {
-  // var data = form;
+  // creates rows into database from the form inputs
   console.log(document.getElementById("task-name").value);
   axios
     .post("http://localhost:3001/tasks", {
@@ -85,6 +72,7 @@ function processForm(form) {
     .catch(console.error);
 }
 
+//gets tasks from database and outputs it onto the html page
 axios.get("http://localhost:3001/tasks")
   .then(function (response) {
     return response.data;
@@ -122,13 +110,6 @@ axios.get("http://localhost:3001/tasks")
       taskDelete.setAttribute("class",data.ID);
       taskDelete.innerHTML = "DEL"
 
-    //   let app = document.getElementById("app")
-    
-      // app.appendChild(taskNameElement);
-      // app.appendChild(taskLabel);
-      // app.appendChild(taskImage);
-      // app.appendChild(taskDelete)
-      // app.appendChild(break13);
       app.appendChild(inputDiv)
       inputDiv.appendChild(taskNameElement);
       inputDiv.appendChild(taskLabel);
@@ -154,6 +135,7 @@ axios.get("http://localhost:3001/tasks")
 // upload image add to database then await checkBox
 // OR check User.upload() == true
 
+//ticks checkbox when image is uploaded and outputs score
 async function checkBox(imageUploader) {
   if (imageUploader.files.length > 0) {
     
@@ -173,6 +155,7 @@ async function checkBox(imageUploader) {
   }
 }
 
+
 function saveImage(id) {
   img = document.getElementById("task-image" + id).value
   console.log(img)
@@ -187,8 +170,7 @@ function saveImage(id) {
   }
   
   
-
-
+//deletes task from database and html when button is clicked
 async function deleteTask(button) {
   let id = button.getAttribute("class")
   console.log(id)
@@ -213,23 +195,16 @@ async function deleteTask(button) {
 
 }
 
+//adds score when checkbox is ticked
 let score=0
 async function addScore(id){
   
-
-    // let userScore = await axios.get("http://localhost:3001/users/")
-    // userScore.data.forEach((data) =>{
-    //   let score = data.SCORE
-    //   console.log(score)
-    // })
     
     try{
         let result = await axios.get(`http://localhost:3001/tasks/` + id) //change to /:id ??
-        // let score = 0
         result.data.forEach((data) =>{
             if (data.DIFFICULTY_LEVEL == "Easy") {
             score += 10;
-            // axios.put(`http://localhost:3001/users/`)
             data
             console.log(score)
             } else if (data.DIFFICULTY_LEVEL == "Medium") {
@@ -247,6 +222,7 @@ async function addScore(id){
 }
 
 //filter out tasks and score according to user
+//logins and redirect to html page
 async function taskPage(){
       try{
         var un=document.forms["myForm"]["uname"].value

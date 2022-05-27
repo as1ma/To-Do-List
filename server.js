@@ -53,6 +53,7 @@ app.use((req, res, next) => {
 
 const { check, validationResult } = require('express-validator');
 
+//inserts form inputs into database
 app.post('/tasks', [
     check('name').not().isEmpty().trim().escape()
 ], async (req, res) => {
@@ -74,6 +75,7 @@ app.post('/tasks', [
     }
 })
 
+//gets users from users table
 app.get('/users', async (req, res) => {
  
         const selectSql = `SELECT * from users`;
@@ -91,7 +93,7 @@ app.get('/users', async (req, res) => {
 
 
     
-
+//gets tasks in database (which aren't set to archived (deleted))
 app.get('/tasks', (req,res)=>{
     //where archived = 'false' - alter sql
     const selectSql = "SELECT * FROM TASK WHERE ARCHIVE= 0 ";
@@ -104,6 +106,7 @@ app.get('/tasks', (req,res)=>{
     });
 })
 
+//gets task that user clicks on using the ID and checks difficulty level to add score
 app.get('/tasks/:id', (req,res)=>{
     id = req.params.id
     const selectSql = `SELECT * FROM TASK WHERE ID = ${id} ` ;
@@ -145,7 +148,7 @@ app.get('/delete', (req,res)=>{
   });
 })
 
-
+//sets archive to true for specific id when delete button is clicked 
 app.put("/delete/:id", function (req, res) {
   const index = req.params.id;
   db.run(
@@ -182,34 +185,3 @@ app.put("/delete/:id", function (req, res) {
 //   });
 // });
 
-// app.post("/restaurants", (req, res) => {
-//     console.log(req.body); // use the data in req.body to add a new restaurant to the database
-//     const sql = `INSERT INTO tasks(NAME, DIFFICULTY_LEVEL) VALUES("${req.body.NAME}","${req.body.DIFFICULTY_LEVEL}")`;
-  
-//     db.run(sql, (err) => {
-//       if (err) {
-//         return console.error(err.message);
-//       } else {
-//         console.log("Rows Created!");
-//       }
-//     });
-//     res.sendStatus(201);
-//   });
-
-// app.put("/tasks/:id", function (req, res) {
-//     const index = req.params.id;
-//     console.log(
-//       "Updating Restaurant " +
-//         index +
-//         " setting Name to " +
-//         req.body.NAME +
-//         ", setting Imagelink to " +
-//         req.body.IMAGELINK
-//     );
-  
-//     db.run(
-//       `UPDATE restaurants SET IMAGELINK ="${req.body.IMAGELINK}" WHERE ID ="${index}"`
-//     );
-//     db.run(
-//       `UPDATE restaurants SET NAME = "${req.body.NAME}" WHERE ID = "${index}";`
-//     );

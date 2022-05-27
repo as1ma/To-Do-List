@@ -28,6 +28,15 @@ const selectSql = "SELECT * FROM task WHERE ARCHIVE= 0"; db.all(selectSql, (err,
     }
 })
 
+// const usersSql = "SELECT * FROM users"; db.all(usersSql, (err, rows)=>{
+//     if(err){
+//         return console.error(err.message)
+//     }else{
+//         rows.forEach((row)=>{
+//             console.log(row)})
+//     }
+// })
+
 // const sql = "ALTER TABLE task DROP COLUMN ARCHIVE"; db.run(sql, (err)=>{ if(err) { return console.error(err.message); } else{ console.log("Table deleted!"); } });
 
  //UPDATING

@@ -5,7 +5,7 @@
 3. Check if image is uploaded - if it is, check the box and add score ✅
 4. Async function for checkbox...await...add score ✅ 
 5. EXTENSION: Delete tasks (for mistakes) ✅ 
-6. EXT: users (login system, check if in database, filter out tasks)
+6. EXT: users (login system, check if in database, ✅ filter out tasks)
 
 Front-end:
 1. User makes tasks (forms) ✅
@@ -13,4 +13,3 @@ Front-end:
 3. Upload image option for user (forms) ✅ 
 4. EXTENSION: //use multer to store image (forms ppt)
 5. CSS stuff ✅
-6. EXTENSION: strikethrough task when completed?
