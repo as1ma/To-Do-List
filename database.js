@@ -19,16 +19,7 @@ const db = new sqlite3.Database("./database.db", sqlite3.OPEN_READWRITE, (err)=>
 // db.run("INSERT INTO users (NAME,PASSWORD,SCORE) VALUES('nouha','123','0')")
 
 // SELECTING ROWS TO SEE TABLE
-const selectSql = "SELECT * FROM task WHERE ARCHIVE= 0"; db.all(selectSql, (err, rows)=>{
-    if(err){
-        return console.error(err.message)
-    }else{
-        rows.forEach((row)=>{
-            console.log(row)})
-    }
-})
-
-// const usersSql = "SELECT * FROM users"; db.all(usersSql, (err, rows)=>{
+// const selectSql = "SELECT * FROM task WHERE ARCHIVE= 0"; db.all(selectSql, (err, rows)=>{
 //     if(err){
 //         return console.error(err.message)
 //     }else{
@@ -36,6 +27,15 @@ const selectSql = "SELECT * FROM task WHERE ARCHIVE= 0"; db.all(selectSql, (err,
 //             console.log(row)})
 //     }
 // })
+
+const usersSql = "SELECT * FROM users"; db.all(usersSql, (err, rows)=>{
+    if(err){
+        return console.error(err.message)
+    }else{
+        rows.forEach((row)=>{
+            console.log(row)})
+    }
+})
 
 // const sql = "ALTER TABLE task DROP COLUMN ARCHIVE"; db.run(sql, (err)=>{ if(err) { return console.error(err.message); } else{ console.log("Table deleted!"); } });
 
