@@ -255,7 +255,7 @@ async function taskPage(){
         console.log(result.data)
         result.data.forEach((data) =>{
           data.ID
-          if(data.NAME ==un ){
+          if(data.NAME ==un && data.PASSWORD == pw){
             console.log("name is right");
             window.location.href="index.html"
             
